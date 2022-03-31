@@ -14,6 +14,12 @@ Helps us give greetings, during login, different languages etc
 
 > Supports jQuery
 
+# Ice Box
+
+1. other languages
+2. some other methods
+3. alternate greetings
+
 
 
 
