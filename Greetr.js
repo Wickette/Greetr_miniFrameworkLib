@@ -4,9 +4,11 @@
 // jQuery variable - $
 
 // IIFE 
-( function (global, $) {
+// add semicolon to make sure your code will still run, even if a preceding library is missing a semicolon somewhere
+;( function (global, $) {
     'use strict'
 
+    // 'new' object
     let Greetr = function (firstName, lastName, language) {
             return new Greetr.init( firstName, lastName, language );
     }
@@ -18,11 +20,14 @@
     // declaring and creating variables to be used in Greetr function
     let supportedLanguages = ['en', 'es'];
 
+    // informal greetings
     let greetings = {
         en: 'Hello',
         es: 'Hola'
     };
 
+
+    // formal greeting
     let formalGreetings = {
         en: 'Greetings',
         es: 'Saludas'
@@ -41,25 +46,30 @@
     // Greetr method library
     // adding functionality to objects created
     Greetr.prototype = {
-
+        //full name method
         fullName: function() {
             return this.firstName + ' ' + this.lastName;
         },
 
+        // validate that a 'supported language' is chosen
         validate: function() {
             if (supportedLanguages.indexOf(this.language) === -1) {
                 throw "Invalid language"
             }
         },
 
+        // informal greeting, that produces result based on langauge chosen
         greeting: function() {
             return greetings[this.language] + ' ' + this.firstName + '!'
         },
 
+        // formal greeting, that produces result based on langauge chosen
         formalGreeting: function() {
             return formalGreetings[this.language] + ', ' + this.fullName();
         },
 
+        // function that takes boolean to choose informal or formal greeting
+        // thrue - produces formal greeting message
         greet: function(formal) {
             let msg;
 
@@ -69,6 +79,7 @@
             } else {
                 msg = this.greeting();
             }
+            // console logs the msg
             if (console) {
                 console.log(msg);
             }
@@ -78,6 +89,7 @@
             return this;
         },
 
+        // console logs the logMessages function above, with the fullName  
         log: function() {
             if (console) {
                 console.log(logMessages[this.language] + ': ' + this.fullName());
@@ -86,16 +98,20 @@
             return this;
         },
 
+        // if you want to change the language on the fly - sets the new language and validates that it's a supported language
         setLang: function(lang) {
             this.language = lang;
             this.validate();
             return this;
         },
 
+        // addes jQuery functionality to insert msg using jQuery selector
         HTMLGreeting: function( selector, formal ) {
+            // if there is no $ throw error
             if(!$) {
                 throw 'jQuery not loaded';
             }
+            // if there is no selector throw error
             if (!selector) {
                 throw 'Missing jQuery selector';
             }
@@ -122,12 +138,14 @@
         self.lastName = lastName || '';
         self.language = language || 'en';
 
+        self.validate();
+
     }
 
-    // changing the name to use Greetr.prototype for ease of use
+    // trick borrowed from jQuery so we don't have to use the 'new' key work=d
     Greetr.init.prototype = Greetr.prototype;
 
-    // Adding the ability to use G$;
+    // Adding the ability to use G$, and attaching it to the global object
     global.Greetr = global.G$ = Greetr;
 
 })(window, jQuery);
