@@ -18,7 +18,9 @@ Helps us give greetings, during login, different languages etc
 
 1. other languages
 2. some other methods
+    - adding user selection for a formal or informal greeting
 3. alternate greetings
+4. spice up html
 
 
 
